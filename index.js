@@ -1,10 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const cors = require('cors');
-
-const token = '6134447197:AAErIbSmHxPWpKZV0lJPS-gHpvxPpSsLQic';
+require('dotenv').config();
 const webAppUrl  = 'https://sage-zabaione-378b67.netlify.app';
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(process.env.ACCSHOP_TOKEN, {polling: true});
 
 const app = express();
 
@@ -76,9 +75,7 @@ app.post ('/web-data', async (request)=>{
   
 })
 
-const PORT = 8000;
-
-app.listen(PORT, ()=> {
-  console.log('server started on PORT ' + PORT);
+app.listen(process.env.PORT, ()=> {
+  console.log('server started on PORT ' + process.env.PORT);
 });
 
