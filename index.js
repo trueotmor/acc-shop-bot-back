@@ -1,11 +1,13 @@
-const cors = require('cors');
-const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
+const cors = require('cors');
+const app = express();
 require('dotenv').config();
+
+const TelegramBot = require('node-telegram-bot-api');
 const webAppUrl  = 'https://sage-zabaione-378b67.netlify.app';
 const bot = new TelegramBot(process.env.ACCSHOP_TOKEN, {polling: true});
 
-const app = express();
+
 
 app.use(express.json());
 app.use(cors());
