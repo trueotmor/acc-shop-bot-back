@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "goodorofood",
@@ -19,6 +19,7 @@
     "node-telegram-bot-api": "^0.61.0"
   },
   "engines": {
-    "node": "14.17.0"
+    "node": "14.17.0",
+    "npm": "9.2.0"
   }
 }
