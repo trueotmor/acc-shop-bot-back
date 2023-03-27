@@ -3,11 +3,22 @@ const cors = require('cors');
 const app = express();
 require('dotenv').config();
 
+const {MongoClient} = require('mongodb');
+
 const TelegramBot = require('node-telegram-bot-api');
 const webAppUrl  = 'https://sage-zabaione-378b67.netlify.app';
 const bot = new TelegramBot(process.env.ACCSHOP_TOKEN, {polling: true});
 
+const client = new MongoClient('mongodb+srv://goodorfood:fuHJ53mSvrpwXyD@accshop.11sxcrx.mongodb.net/?retryWrites=true&w=majority')
 
+const start = async () => {
+  try {
+    await client.connect();
+    console.log('соединение установлено')
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 app.use(express.json());
 app.use(cors());
@@ -51,14 +62,14 @@ bot.on('message', async (msg) => {
 });
 
 app.post ('/web-data', async (request)=>{
-  const {queryId, accounts, totalPrice} = request.body;
+  const {queryId, accounts = [], totalPrice} = request.body;
   try {
     await bot.answerWebAppQuery(queryId, {
       type: 'article',
       id: queryId,
       title: 'успех',
       input_message_content: {
-        message_text: 'Поздравляю вы приобрели товар на сумму: ' + totalPrice
+        message_text: ` Поздравляю с покупкой, вы приобрели товар на сумму ${totalPrice}, ${accounts.map(item => item.title).join(', ')}`
       }
     })
     return res.status(200).JSON({});    
@@ -76,6 +87,8 @@ app.post ('/web-data', async (request)=>{
 
   
 })
+
+start();
 
 app.listen(process.env.PORT, ()=> {
   console.log('server started on PORT ' + process.env.PORT);
