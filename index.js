@@ -32,7 +32,7 @@ const start = async () => {
     })
 
     const user = await accounts.findOne({name: 'lett'});
-    console.log(user);
+    console.log("пользователь: " + user);
     
   } catch (error) {
     console.log(error);
