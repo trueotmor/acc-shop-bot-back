@@ -9,7 +9,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const webAppUrl  = 'https://sage-zabaione-378b67.netlify.app';
 const bot = new TelegramBot(process.env.ACCSHOP_TOKEN, {polling: true});
 
-const client = new MongoClient(DB_URL)
+const client = new MongoClient(process.env.DB_URL);
 
 const start = async () => {
   try {
