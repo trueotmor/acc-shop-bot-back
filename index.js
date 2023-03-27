@@ -14,7 +14,26 @@ const client = new MongoClient(process.env.DB_URL);
 const start = async () => {
   try {
     await client.connect();
-    console.log('соединение установлено')
+    console.log('соединение установлено');
+    await client.db().createCollection('accounts');
+    const accounts = client.db().collection('accounts');
+
+    accounts.insertOne({
+      "username": "lett",
+      "userid": "1231234",
+      "account": {
+        "level": "80",
+        "heroes": [
+          "ashlin",
+          "gubeg",
+          "alisa"
+        ]
+      }
+    })
+
+    const user = await accounts.findOne({name: 'lett'});
+    console.log(user);
+    
   } catch (error) {
     console.log(error);
   }
